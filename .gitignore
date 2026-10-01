@@ -1,0 +1,12 @@
+# Material de clase (PDFs de Insuco): la carpeta completa se queda solo en local
+insuco/
+
+# Sistema y editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+
+# Referencia de estilos de otro proyecto (Pyxoom): solo local
+referencia-estilos/
+HANDOFF-ESTILOS.md

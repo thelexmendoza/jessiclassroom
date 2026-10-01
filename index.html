@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Estadística sin drama</title>
+<meta name="description" content="Guía interactiva de las tareas de Estadística (Clases 2 y 3): distribución de frecuencias simple y por intervalos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<a class="skip" href="#entregables">Saltar al contenido</a>
+
+<!-- ============ AVATARES (SVG originales) ============ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="av-siete" viewBox="0 0 120 120">
+    <rect x="18" y="10" width="72" height="94" rx="22" style="fill:var(--electric)"/>
+    <rect x="18" y="10" width="72" height="94" rx="22" fill="none" stroke-width="3" style="stroke:var(--sig-formula)"/>
+    <circle cx="41" cy="38" r="9" style="fill:var(--white)"/>
+    <circle cx="67" cy="38" r="9" style="fill:var(--white)"/>
+    <circle cx="43" cy="40" r="4" style="fill:var(--navy-deep)"/>
+    <circle cx="65" cy="40" r="4" style="fill:var(--navy-deep)"/>
+    <path d="M31 25 L50 28" stroke-width="4" stroke-linecap="round" style="stroke:var(--white)"/>
+    <path d="M58 23 Q67 15 77 22" fill="none" stroke-width="4" stroke-linecap="round" style="stroke:var(--white)"/>
+    <path d="M42 58 Q56 64 68 53" fill="none" stroke-width="4" stroke-linecap="round" style="stroke:var(--white)"/>
+    <text x="54" y="96" text-anchor="middle" font-family="Poppins, sans-serif" font-weight="900" font-size="32" style="fill:var(--white)">7</text>
+    <circle cx="100" cy="98" r="17" style="fill:var(--electric-lt)"/>
+    <circle cx="95" cy="91" r="1.8" style="fill:var(--ink-on-light)"/>
+    <circle cx="105" cy="91" r="1.8" style="fill:var(--ink-on-light)"/>
+    <text x="100" y="106" text-anchor="middle" font-family="Poppins, sans-serif" font-weight="800" font-size="11" style="fill:var(--ink-on-light)">.64</text>
+  </symbol>
+  <symbol id="av-moda" viewBox="0 0 120 120">
+    <rect x="10" y="68" width="26" height="40" rx="7" style="fill:var(--sig-ejemplo)" opacity=".55"/>
+    <rect x="84" y="80" width="26" height="28" rx="7" style="fill:var(--sig-ejemplo)" opacity=".55"/>
+    <rect x="40" y="26" width="40" height="82" rx="11" style="fill:var(--electric-lt)"/>
+    <path d="M45 27 L49 10 L60 20 L71 10 L75 27 Z" style="fill:var(--danger)"/>
+    <rect x="43" y="42" width="15" height="10" rx="4" style="fill:var(--ink-on-light)"/>
+    <rect x="62" y="42" width="15" height="10" rx="4" style="fill:var(--ink-on-light)"/>
+    <path d="M58 46 h4" stroke-width="3" style="stroke:var(--ink-on-light)"/>
+    <path d="M49 62 Q60 72 71 62" fill="none" stroke-width="3.5" stroke-linecap="round" style="stroke:var(--ink-on-light)"/>
+    <rect x="6" y="107" width="108" height="4" rx="2" style="fill:var(--white)" opacity=".3"/>
+  </symbol>
+  <symbol id="av-fermin" viewBox="0 0 120 120">
+    <path d="M24 44 L30 12 L52 32 Z" style="fill:var(--char-gris-dk)"/>
+    <path d="M96 44 L90 12 L68 32 Z" style="fill:var(--char-gris-dk)"/>
+    <ellipse cx="60" cy="62" rx="42" ry="38" style="fill:var(--char-gris)"/>
+    <path d="M20 58 Q60 40 100 58 Q98 76 80 74 Q60 64 40 74 Q22 76 20 58 Z" style="fill:var(--char-tinta)"/>
+    <path d="M34 60 a8 8 0 0 0 16 0 Z" style="fill:var(--white)"/>
+    <path d="M70 60 a8 8 0 0 0 16 0 Z" style="fill:var(--white)"/>
+    <circle cx="42" cy="63" r="2.6" style="fill:var(--char-tinta)"/>
+    <circle cx="78" cy="63" r="2.6" style="fill:var(--char-tinta)"/>
+    <ellipse cx="60" cy="86" rx="19" ry="14" style="fill:var(--char-claro)"/>
+    <ellipse cx="60" cy="79" rx="6" ry="4" style="fill:var(--char-tinta)"/>
+    <path d="M53 89 h14" stroke-width="3" stroke-linecap="round" style="stroke:var(--char-tinta)"/>
+    <path d="M28 98 Q60 110 92 98 L90 108 Q60 120 30 108 Z" style="fill:var(--sig-ejemplo)"/>
+  </symbol>
+</svg>
+
+<!-- ============ NAVEGACIÓN ============ -->
+<nav class="est-subnav" id="subnav" aria-label="Secciones">
+  <a class="est-subnav__brand" href="#inicio">σ Estadística <span>sin drama</span></a>
+  <button class="est-subnav__toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+  <ul class="est-subnav__menu" id="navMenu">
+    <li><a class="est-subnav__link" href="#inicio">Inicio</a></li>
+    <li><a class="est-subnav__link" href="#entregables">Entregables</a></li>
+    <li><a class="est-subnav__link" href="#mision-1">Misión 1</a></li>
+    <li><a class="est-subnav__link" href="#mision-2">Misión 2</a></li>
+    <li><a class="est-subnav__link" href="#checklist">Checklist</a></li>
+  </ul>
+  <div class="est-subnav__progress" id="navProgress" aria-hidden="true"></div>
+</nav>
+
+<main>
+<!-- ============ PORTADA ============ -->
+<header class="est-hero" id="inicio">
+  <div class="est-hero__top">
+    <a class="est-logo" href="#inicio">
+      <span class="est-logo__mark" aria-hidden="true">σ</span>
+      <span class="est-logo__text">Estadística sin drama<span>Clases 2 y 3 · Insuco</span></span>
+    </a>
+  </div>
+  <div class="est-hero__body">
+    <div>
+      <span class="est-badge">Clases 2 y 3 · Distribución de frecuencias</span>
+      <h1 class="est-hero__headline">Tarea de hoy: <em>hacer hablar a los datos</em></h1>
+      <p class="est-hero__sub">Dos misiones, una cosa a la vez. Primero el <strong>qué</strong>; el porqué está a un clic. Tu avance se guarda solo en este navegador.</p>
+      <div class="est-cta-group">
+        <a class="est-btn est-btn--primary" href="#entregables">Empezar la misión →</a>
+        <button class="est-btn est-btn--outline" type="button" data-pomo-start>⏱ Prender 15 min de foco</button>
+      </div>
+    </div>
+    <div class="est-hero__stage">
+      <svg class="est-hero__avatar" role="img" aria-label="Siete-Punto-Seis, el presentador"><use href="#av-siete"/></svg>
+      <div class="est-say est-say--siete">
+        <div class="est-say__bubble">
+          <span class="est-say__name">Siete-Punto-Seis</span>
+          <p>Hola. Soy <em>7.64</em>. Sturges me calculó con cariño y luego me redondearon a 7. Sigo procesándolo. Hoy te acompaño con las tablas de frecuencias. Prometo chistes cortos.</p>
+        </div>
+      </div>
+      <div class="est-stat-row">
+        <div class="est-stat-card"><div class="est-stat-card__num">2</div><div class="est-stat-card__label">misiones</div></div>
+        <div class="est-stat-card"><div class="est-stat-card__num">9</div><div class="est-stat-card__label">entregables</div></div>
+        <div class="est-stat-card"><div class="est-stat-card__num" id="heroPct">0%</div><div class="est-stat-card__label">tu avance</div></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ ENTREGABLES ============ -->
+<section class="est-wrap" id="entregables" aria-labelledby="t-entregables">
+  <div class="est-section">
+    <p class="est-section__label">Resumen primero</p>
+    <h2 class="est-section__title" id="t-entregables">Lo que tienes que entregar</h2>
+    <div class="est-say est-say--siete">
+      <svg class="est-say__av" aria-hidden="true"><use href="#av-siete"/></svg>
+      <div class="est-say__bubble">
+        <span class="est-say__name">Siete-Punto-Seis</span>
+        <p>Sí, te veo con 14 pestañas abiertas. Cierra 13. Yo espero. …¿Listo? Mentira. Igual seguimos. Estas son <strong>las 9 cosas</strong> que te piden. Toca una para saltar directo.</p>
+      </div>
+    </div>
+    <div class="est-deliv" id="delivList"></div>
+
+    <div class="est-grid-2 est-howto">
+      <div class="est-card">
+        <p class="est-section__subtitle">Cómo usar esta página</p>
+        <ol>
+          <li>Prende el temporizador: <strong>15 min</strong> de foco y 5 de descanso.</li>
+          <li>Haz <strong>un bloque a la vez</strong>; al terminar, marca "Ya lo tengo".</li>
+          <li>Los botones de "Pista", "Verifica" y "Solución" están cerrados a propósito. Ábrelos en ese orden.</li>
+        </ol>
+      </div>
+      <div class="est-card">
+        <p class="est-section__subtitle">Colores que siempre significan lo mismo</p>
+        <div class="est-legend">
+          <span class="est-tag est-tag--formula">∑ Fórmula</span>
+          <span class="est-tag est-tag--ejemplo">▶ Ejemplo</span>
+          <span class="est-tag est-tag--ojo">⚠ Ojo</span>
+          <span class="est-tag est-tag--turno">✎ Tu turno</span>
+          <span class="est-tag est-tag--ok">✔ Correcto</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MISIÓN 1 ============ -->
+<section class="est-wrap est-wrap--alt" id="mision-1" aria-labelledby="t-m1">
+  <div class="est-section">
+    <p class="est-section__label">Misión 1 · Clase 2</p>
+    <h2 class="est-section__title" id="t-m1">Frecuencias simples</h2>
+    <p class="est-section__desc">Una <span class="est-term" tabindex="0">distribución de frecuencias<span class="est-tooltip" role="tooltip">Tabla que muestra cuántas veces aparece cada valor dentro de un conjunto de datos.</span></span> es una tabla que dice <strong>cuántas veces aparece cada valor</strong>. Así 50 números revueltos se convierten en algo que se entiende.</p>
+
+    <!-- 1.1 Vocabulario -->
+    <div class="est-block" id="m1-vocab">
+      <div class="est-block__head"><span class="est-block__num">1.1</span><h3 class="est-section__subtitle">El vocabulario (toca para voltear)</h3></div>
+      <div class="est-say est-say--moda" style="margin-bottom:16px">
+        <svg class="est-say__av" aria-hidden="true"><use href="#av-moda"/></svg>
+        <div class="est-say__bubble">
+          <span class="est-say__name">La Moda</span>
+          <p>Hola, soy La Moda: el valor que más se repite. O sea, el más popular. Estas seis letras son mi equipo de prensa. Apréndetelas y todo lo demás sale solo.</p>
+        </div>
+      </div>
+      <div class="est-flips" data-autoflip>
+        <div class="est-flip"><button class="est-flip__inner" type="button" aria-pressed="false">
+          <span class="est-flip__face est-flip__face--front"><span class="est-flip__symbol">n</span><span class="est-flip__name">Tamaño de la muestra</span><span class="est-flip__hint">↻ voltear</span></span>
+          <span class="est-flip__face est-flip__face--back"><span class="est-tag est-tag--formula">∑ n</span><span class="est-flip__text">Cuántos datos hay <strong>en total</strong>. En La Hilacha, n = 50 obreras. Es el número entre el que vas a dividir después.</span></span>
+        </button></div>
+        <div class="est-flip"><button class="est-flip__inner" type="button" aria-pressed="false">
+          <span class="est-flip__face est-flip__face--front"><span class="est-flip__symbol">x<sub>i</sub></span><span class="est-flip__name">La variable</span><span class="est-flip__hint">↻ voltear</span></span>
+          <span class="est-flip__face est-flip__face--back"><span class="est-tag est-tag--formula">∑ x<sub>i</sub></span><span class="est-flip__text">Cada <strong>valor distinto</strong> que aparece. En los salarios: 50, 51, … 58 (miles de $). Es la primera columna, ordenada de menor a mayor.</span></span>
+        </button></div>
+        <div class="est-flip"><button class="est-flip__inner" type="button" aria-pressed="false">
+          <span class="est-flip__face est-flip__face--front"><span class="est-flip__symbol">f<sub>i</sub></span><span class="est-flip__name">Frecuencia absoluta</span><span class="est-flip__hint">↻ voltear</span></span>
+          <span class="est-flip__face est-flip__face--back"><span class="est-tag est-tag--formula">∑ f<sub>i</sub></span><span class="est-flip__text"><strong>Cuántas veces</strong> se repite cada x<sub>i</sub>. El 54 aparece 12 veces, así que f = 12. Todas las f<sub>i</sub> juntas suman n.</span></span>
+        </button></div>
+        <div class="est-flip"><button class="est-flip__inner" type="button" aria-pressed="false">
+          <span class="est-flip__face est-flip__face--front"><span class="est-flip__symbol">fa</span><span class="est-flip__name">Frecuencia acumulada</span><span class="est-flip__hint">↻ voltear</span></span>
+          <span class="est-flip__face est-flip__face--back"><span class="est-tag est-tag--formula">∑ fa = fa anterior + f<sub>i</sub></span><span class="est-flip__text">La f<sub>i</sub> de esta fila <strong>más todas las de arriba</strong>: 1, 4, 9, 18… La última siempre vale n.</span></span>
+        </button></div>
+        <div class="est-flip"><button class="est-flip__inner" type="button" aria-pressed="false">
+          <span class="est-flip__face est-flip__face--front"><span class="est-flip__symbol">fr</span><span class="est-flip__name">Frecuencia relativa</span><span class="est-flip__hint">↻ voltear</span></span>
+          <span class="est-flip__face est-flip__face--back"><span class="est-tag est-tag--formula">∑ fr = f<sub>i</sub> ÷ n</span><span class="est-flip__text">12 ÷ 50 = 0.24, o sea, <strong>el 24%</strong>. Es la parte del total. Todas las fr suman 1 (100%).</span></span>
+        </button></div>
+        <div class="est-flip"><button class="est-flip__inner" type="button" aria-pressed="false">
+          <span class="est-flip__face est-flip__face--front"><span class="est-flip__symbol">fra</span><span class="est-flip__name">Relativa acumulada</span><span class="est-flip__hint">↻ voltear</span></span>
+          <span class="est-flip__face est-flip__face--back"><span class="est-tag est-tag--formula">∑ fra = fa ÷ n</span><span class="est-flip__text">30 ÷ 50 = 0.60, o sea que <strong>el 60% gana 54 o menos</strong>. Sirve para las frases de "o menos". La última vale 1.00.</span></span>
+        </button></div>
+      </div>
+    </div>
+
+    <!-- 1.2 Ejemplo resuelto -->
+    <div class="est-block" id="m1-ejemplo">
+      <div class="est-block__head"><span class="est-block__num">1.2</span><h3 class="est-section__subtitle">Mira cómo se hace: salarios de "La Hilacha"</h3></div>
+      <div class="est-carousel" data-carousel aria-roledescription="carrusel" aria-label="Ejemplo resuelto de salarios">
+        <div class="est-carousel__track">
+          <article class="est-carousel__slide" aria-label="Paso 1 de 6">
+            <p class="est-slide__step">▶ Ejemplo · Paso 1 de 6</p>
+            <h4 class="est-slide__title">Los datos crudos: 50 salarios revueltos</h4>
+            <div class="est-slide__body est-slide__body--split">
+              <div class="est-stack">
+                <p>Hay huelga en la fábrica y el gerente anota el salario diario de sus <strong>50 operarias</strong>, en miles de pesos. Así, revueltos, no dicen nada.</p>
+                <div class="est-say est-say--siete"><svg class="est-say__av" aria-hidden="true"><use href="#av-siete"/></svg><div class="est-say__bubble"><span class="est-say__name">Siete-Punto-Seis</span><p>Mira esa sopa de números. Tampoco la entiendo, y eso que yo soy un número.</p></div></div>
+              </div>
+              <div class="est-chips" data-chips="salarios"></div>
+            </div>
+          </article>
+          <article class="est-carousel__slide" aria-label="Paso 2 de 6">
+            <p class="est-slide__step">▶ Ejemplo · Paso 2 de 6</p>
+            <h4 class="est-slide__title">Ordénalos de menor a mayor</h4>
+            <div class="est-slide__body est-slide__body--split">
+              <div class="est-stack">
+                <p>Al ordenar se ve rápido el <strong>menor (50)</strong>, el <strong>mayor (58)</strong> y qué valores se repiten. Los distintos valores son tus <strong>x<sub>i</sub></strong>: del 50 al 58.</p>
+                <div class="est-box est-box--ojo"><span class="est-tag est-tag--ojo">⚠ Ojo</span><p>No te saltes este paso. Contar sobre datos desordenados es la forma más rápida de perder uno.</p></div>
+              </div>
+              <div class="est-chips" data-chips="salarios" data-sorted></div>
+            </div>
+          </article>
+          <article class="est-carousel__slide" aria-label="Paso 3 de 6">
+            <p class="est-slide__step">▶ Ejemplo · Paso 3 de 6</p>
+            <h4 class="est-slide__title">Cuenta cuántas veces sale cada valor (f<sub>i</sub>)</h4>
+            <div class="est-slide__body est-slide__body--split">
+              <div class="est-stack">
+                <p>El 50 sale 1 vez, el 51 sale 3 veces y así sucesivamente. <strong>Comprueba</strong> que la columna f<sub>i</sub> sume 50.</p>
+                <div class="est-say est-say--moda"><svg class="est-say__av" aria-hidden="true"><use href="#av-moda"/></svg><div class="est-say__bubble"><span class="est-say__name">La Moda</span><p>¿Ves el 54 con 12? Esa soy yo. Tendencia absoluta.</p></div></div>
+              </div>
+              <div class="est-table-wrap"><table class="est-table" data-simple="salarios" data-cols="x,f" data-hot="54"></table></div>
+            </div>
+          </article>
+          <article class="est-carousel__slide" aria-label="Paso 4 de 6">
+            <p class="est-slide__step">▶ Ejemplo · Paso 4 de 6</p>
+            <h4 class="est-slide__title">Acumula: fa</h4>
+            <div class="est-slide__body est-slide__body--split">
+              <div class="est-stack">
+                <div class="est-box est-box--formula"><span class="est-tag est-tag--formula">∑ Fórmula</span><p class="est-formula">fa = fa de arriba + f<sub>i</sub></p><p>1 → 1+3 = 4 → 4+5 = 9 → 9+9 = 18…</p></div>
+                <div class="est-say est-say--fermin"><svg class="est-say__av" aria-hidden="true"><use href="#av-fermin"/></svg><div class="est-say__bubble"><span class="est-say__name">Fermín Acumulado</span><p>Mi filosofía de vida: no se suelta nada. Si la última fa no da 50, alguien perdió una obrera. Yo no fui. …Bueno, tal vez sí.</p></div></div>
+              </div>
+              <div class="est-table-wrap"><table class="est-table" data-simple="salarios" data-cols="x,f,fa" data-new="fa"></table></div>
+            </div>
+          </article>
+          <article class="est-carousel__slide" aria-label="Paso 5 de 6">
+            <p class="est-slide__step">▶ Ejemplo · Paso 5 de 6</p>
+            <h4 class="est-slide__title">Divide entre n: fr y fra</h4>
+            <div class="est-slide__body est-slide__body--split">
+              <div class="est-stack">
+                <div class="est-box est-box--formula"><span class="est-tag est-tag--formula">∑ Fórmula</span><p class="est-formula">fr = f<sub>i</sub> ÷ n &nbsp;·&nbsp; fra = fa ÷ n</p><p>Ejemplo: 12 ÷ 50 = 0.24 y 30 ÷ 50 = 0.60.</p></div>
+                <div class="est-box est-box--ok"><span class="est-tag est-tag--ok">✔ Revisa</span><p>La columna f<sub>i</sub> suma <strong>50</strong>, la fr suma <strong>1.00</strong> y la última fra es <strong>1.00</strong>.</p></div>
+              </div>
+              <div class="est-table-wrap"><table class="est-table" data-simple="salarios" data-cols="x,f,fa,fr,fra" data-new="fr,fra"></table></div>
+            </div>
+          </article>
+          <article class="est-carousel__slide" aria-label="Paso 6 de 6">
+            <p class="est-slide__step">▶ Ejemplo · Paso 6 de 6</p>
+            <h4 class="est-slide__title">Saca conclusiones (en español, no en números)</h4>
+            <div class="est-slide__body est-slide__body--split">
+              <ul class="est-stack" style="padding-left:1.2rem">
+                <li>Solo el <strong>4%</strong> gana el máximo ($58.000). <em>Viene de la fr del 58.</em></li>
+                <li>El mínimo ($50.000) lo gana una sola obrera: el <strong>2%</strong>.</li>
+                <li>El <strong>62%</strong> gana entre $53.000 y $55.000. <em>Sale de 0.18 + 0.24 + 0.20.</em></li>
+                <li>El <strong>60%</strong> gana $54.000 o menos. <em>Es la fra del 54.</em></li>
+                <li>El <strong>64%</strong> gana $54.000 o más. <em>Se calcula 1 − 0.36.</em></li>
+              </ul>
+              <div class="est-box est-box--formula"><span class="est-tag est-tag--formula">∑ Plantillas para copiar</span>
+                <p>"El <b>__%</b> de [quiénes] tiene [valor]." → usa la <strong>fr</strong>.</p>
+                <p>"El <b>__%</b> tiene [valor] o menos." → usa la <strong>fra</strong>.</p>
+                <p>"El <b>__%</b> tiene [valor] o más." → calcula 1 − la fra de la fila anterior.</p>
+                <p>"El <b>__%</b> está entre A y B." → suma las fr de esas filas.</p>
+              </div>
+            </div>
+          </article>
+        </div>
+        <div class="est-carousel__bar">
+          <button class="est-carousel__arrow" type="button" data-prev aria-label="Paso anterior">←</button>
+          <div class="est-carousel__dots" role="tablist"></div>
+          <span class="est-carousel__count" aria-live="polite"></span>
+          <button class="est-carousel__arrow" type="button" data-next aria-label="Paso siguiente">→</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1.3 Tu turno: ausencias -->
+    <div class="est-block" id="m1-turno">
+      <div class="est-block__head"><span class="est-block__num">1.3</span><h3 class="est-section__subtitle">Tu turno: ausencias de 50 obreras (ejercicios 4, 5 y 6)</h3></div>
+      <div class="est-box est-box--turno"><span class="est-tag est-tag--turno">✎ Tu turno</span>
+        <p>Los datos son los días que faltó cada obrera de "La Hilacha" en octubre. Tienes que entregar <strong>una tabla de frecuencias simple</strong> (x<sub>i</sub>, f<sub>i</sub>, fa, fr, fra) y <strong>3 conclusiones</strong>.</p>
+      </div>
+      <div class="est-grid-2" style="margin-top:16px">
+        <div class="est-card">
+          <p class="est-section__subtitle">Contador: toca cada dato al contarlo</p>
+          <p style="font-size:15px;color:var(--muted)">Se tacha para que no lo cuentes dos veces. Las palomitas aparecen en la tabla de al lado.</p>
+          <div class="est-tools">
+            <span class="est-counter__status" id="ausStatus" aria-live="polite">0 de 50 contados</span>
+            <button class="est-btn est-btn--outline est-btn--sm" type="button" id="ausReset">Borrar marcas</button>
+          </div>
+          <div class="est-chips" id="ausChips"></div>
+        </div>
+        <div class="est-card">
+          <p class="est-section__subtitle">Tus palomitas</p>
+          <div class="est-table-wrap"><table class="est-table" id="ausTally"></table></div>
+          <ol class="est-steps" style="margin-top:20px">
+            <li><span class="est-steps__dot">1</span><strong>Cuenta</strong>Pasa los conteos a tu cuaderno como f<sub>i</sub>.</li>
+            <li><span class="est-steps__dot">2</span><strong>Acumula</strong>Calcula la fa sumando hacia abajo.</li>
+            <li><span class="est-steps__dot">3</span><strong>Divide</strong>Saca fr = f<sub>i</sub> ÷ 50 y fra = fa ÷ 50.</li>
+            <li><span class="est-steps__dot">4</span><strong>Revisa</strong>La f<sub>i</sub> debe sumar 50, la fr 1.00 y la última fra 1.00.</li>
+          </ol>
+        </div>
+      </div>
+      <div style="margin-top:16px">
+        <div class="est-acc est-acc--pista"><button class="est-acc__btn" type="button" aria-expanded="false"><span class="est-acc__icon">?</span><span class="est-acc__label">Pista</span><span class="est-acc__chev">▾</span></button>
+          <div class="est-acc__panel" hidden><p>La variable va <strong>del 0 al 5</strong> (días de ausencia), así que tu tabla tiene <strong>6 filas</strong>. Sí: el 0 cuenta, porque hay obreras que no faltaron nunca.</p></div></div>
+        <div class="est-acc est-acc--verifica"><button class="est-acc__btn" type="button" aria-expanded="false"><span class="est-acc__icon">✔</span><span class="est-acc__label">Verifica tu tabla (sin ver la solución)</span><span class="est-acc__chev">▾</span></button>
+          <div class="est-acc__panel" hidden><ul>
+            <li>La suma de f<sub>i</sub> es <strong>50</strong> y la última fa también es 50.</li>
+            <li>El valor que más se repite (la Moda) aparece <strong>15 veces</strong>.</li>
+            <li>Las fr suman <strong>1.00</strong>. Si te da 0.98, te faltó contar una obrera.</li>
+            <li>La fra del 2 es <strong>0.74</strong>.</li>
+          </ul></div></div>
+        <div class="est-acc est-acc--solucion"><button class="est-acc__btn" type="button" aria-expanded="false"><span class="est-acc__icon">!</span><span class="est-acc__label">Estoy atorad@: solución completa</span><span class="est-acc__chev">▾</span></button>
+          <div class="est-acc__panel" hidden>
+            <div class="est-table-wrap"><table class="est-table" data-simple="ausencias" data-cols="x,f,fa,fr,fra" data-caption="Ausencias de 50 obreras · octubre"></table></div>
+            <p style="font-size:15px;color:var(--muted)">Úsala para comparar, no para copiar. Tu cerebro aprende más armándola que leyéndola.</p>
+          </div></div>
+      </div>
+
+      <div class="est-say est-say--siete" style="margin-top:24px">
+        <svg class="est-say__av" aria-hidden="true"><use href="#av-siete"/></svg>
+        <div class="est-say__bubble"><span class="est-say__name">Siete-Punto-Seis</span><p>Ahora las 3 conclusiones. Usa las plantillas del paso 6 del ejemplo y cambia "salario" por "días de ausencia". Eso no es copiar: es reciclar con estilo.</p></div>
+      </div>
+      <div class="est-acc est-acc--solucion" style="margin-top:12px"><button class="est-acc__btn" type="button" aria-expanded="false"><span class="est-acc__icon">!</span><span class="est-acc__label">Ver conclusiones de ejemplo</span><span class="est-acc__chev">▾</span></button>
+        <div class="est-acc__panel" hidden><ul>
+          <li>El <strong>20%</strong> de las obreras no faltó ningún día en octubre (fr del 0).</li>
+          <li>Lo más común fue faltar <strong>2 días</strong>: así lo hizo el 30% de las obreras.</li>
+          <li>El <strong>74%</strong> faltó 2 días o menos (fra del 2).</li>
+          <li>Solo el <strong>12%</strong> faltó 4 días o más (0.08 + 0.04).</li>
+        </ul></div></div>
+      <div style="margin-top:16px;display:grid;gap:10px">
+        <label class="est-done"><input type="checkbox" data-check="m1-tabla"> Ya tengo la tabla de ausencias en mi cuaderno</label>
+        <label class="est-done"><input type="checkbox" data-check="m1-concl"> Ya escribí mis 3 conclusiones</label>
+      </div>
+    </div>
+
+    <!-- 1.4 Preguntas -->
+    <div class="est-block" id="m1-preguntas">
+      <div class="est-block__head"><span class="est-block__num">1.4</span><h3 class="est-section__subtitle">Preguntas 1 a 3 (teoría rápida)</h3></div>
+      <p style="margin-bottom:12px;color:var(--muted)">Primero intenta contestar con tus palabras. Luego abre la respuesta guía y compara.</p>
+      <div class="est-acc est-acc--pregunta"><button class="est-acc__btn" type="button" aria-expanded="false"><span class="est-acc__icon">1</span><span class="est-acc__label">¿Qué es frecuencia absoluta?</span><span class="est-acc__chev">▾</span></button>
+        <div class="est-acc__panel" hidden>
+          <p><span class="est-tag est-tag--turno">✎ Pista</span><br>Empieza con "cuántas veces…".</p>
+          <p><span class="est-tag est-tag--ok">✔ Respuesta guía</span><br>Es el <strong>número de veces que se repite</strong> cada valor de la variable (x<sub>i</sub>). Se escribe f<sub>i</sub>, y la suma de todas las f<sub>i</sub> es igual a n, el total de datos.</p>
+        </div></div>
+      <div class="est-acc est-acc--pregunta"><button class="est-acc__btn" type="button" aria-expanded="false"><span class="est-acc__icon">2</span><span class="est-acc__label">¿Y la frecuencia acumulada?</span><span class="est-acc__chev">▾</span></button>
+        <div class="est-acc__panel" hidden>
+          <p><span class="est-tag est-tag--turno">✎ Pista</span><br>Piensa en Fermín: no suelta nada.</p>
+          <p><span class="est-tag est-tag--ok">✔ Respuesta guía</span><br>Es la frecuencia absoluta de un valor <strong>más las de todos los valores anteriores</strong>. Se escribe fa e indica cuántos datos son menores o iguales a ese valor. La última fa siempre es igual a n.</p>
+        </div></div>
+      <div class="est-acc est-acc--pregunta"><button class="est-acc__btn" type="button" aria-expanded="false"><span class="est-acc__icon">3</span><span class="est-acc__label">¿Se pueden sacar conclusiones en porcentaje usando solo la frecuencia relativa? ¿Por qué?</span><span class="est-acc__chev">▾</span></button>
+        <div class="est-acc__panel" hidden>
+          <p><span class="est-tag est-tag--turno">✎ Pista</span><br>¿Qué pasa si multiplicas una fr por 100? ¿Y si sumas varias?</p>
+          <p><span class="est-tag est-tag--ok">✔ Respuesta guía</span><br><strong>Sí.</strong> La fr = f<sub>i</sub> ÷ n es la proporción de cada valor respecto al total; multiplicada por 100 da el porcentaje. Sumando varias fr también salen las frases de "o menos", "o más" o "entre". La fra solo ahorra esa suma.</p>
+          <div class="est-box est-box--ojo"><span class="est-tag est-tag--ojo">⚠ Ojo</span><p>La fr da porcentajes, no cantidades. Para decir "cuántas obreras" necesitas n o la f<sub>i</sub>.</p></div>
+        </div></div>
+      <div style="margin-top:16px"><label class="est-done"><input type="checkbox" data-check="m1-preg"> Ya contesté las preguntas 1, 2 y 3</label></div>
+      <div class="est-next"><a class="est-btn est-btn--primary" href="#mision-2">Siguiente: Misión 2 →</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MISIÓN 2 ============ -->
+<section class="est-wrap" id="mision-2" aria-labelledby="t-m2">
+  <div class="est-section">
+    <p class="est-section__label">Misión 2 · Clase 3</p>
+    <h2 class="est-section__title" id="t-m2">Frecuencias por intervalos</h2>
+    <div class="est-say est-say--siete">
+      <svg class="est-say__av" aria-hidden="true"><use href="#av-siete"/></svg>
+      <div class="est-say__bubble"><span class="est-say__name">Siete-Punto-Seis</span><p>Por fin, mi episodio. Aquí aparece Sturges, el señor que me creó… y me redondeó. Respira. Son 6 pasos y cada uno es una cuenta pequeña.</p></div>
+    </div>
+
+    <!-- 2.1 Por qué -->
+    <div class="est-block" id="m2-porque">
+      <div class="est-block__head"><span class="est-block__num">2.1</span><h3 class="est-section__subtitle">¿Por qué agrupar en intervalos?</h3></div>
+      <div class="est-grid-2">
+        <div class="est-box est-box--ejemplo"><span class="est-tag est-tag--ejemplo">▶ Ejemplo</span>
+          <p>La fábrica "De las Casas" mide la resistencia de <strong>100 baldosas</strong> (en Kg/cm²). Los valores van de 122 a 780 y casi ninguno se repite.</p>
+          <p>Una tabla simple tendría <strong>unas 80 filas con f = 1</strong>. Eso no resume nada.</p></div>
+        <div class="est-box est-box--formula"><span class="est-tag est-tag--formula">∑ La idea</span>
+          <p>En lugar de contar valores, cuentas <strong>cuántos caen en cada rango</strong>: de 100 a 200, de 200 a 300… Con 7 filas se ve todo el patrón.</p>
+          <p>Por lo general se usan <strong>entre 5 y 15 intervalos</strong>.</p></div>
+      </div>
+    </div>
+
+    <!-- 2.2 Receta -->
+    <div class="est-block" id="m2-receta">
+      <div class="est-block__head"><span class="est-block__num">2.2</span><h3 class="est-section__subtitle">La receta de 6 pasos (voltea cada tarjeta)</h3></div>
+      <div class="est-flips" data-autoflip>
+        <div class="est-flip"><button class="est-flip__inner" type="button" aria-pressed="false">
+          <span class="est-flip__face est-flip__face--front"><span class="est-flip__step">Paso 1</span><span class="est-flip__symbol" style="font-size:34px">X<sub>max</sub> · X<sub>min</sub></span><span class="est-flip__name">El mayor y el menor</span><span class="est-flip__hint">↻ voltear</span></span>
+          <span class="est-flip__face est-flip__face--back"><span class="est-tag est-tag--formula">∑ Busca los extremos</span><span class="est-flip__text">Recorre todos los datos y anota <strong>el más grande y el más chico</strong>. En las baldosas: 780 y 122.</span></span>
+        </button></div>
+        <div class="est-flip"><button class="est-flip__inner" type="button" aria-pressed="false">
+          <span class="est-flip__face est-flip__face--front"><span class="est-flip__step">Paso 2</span><span class="est-flip__symbol" style="font-size:34px">R = X<sub>max</sub> − X<sub>min</sub></span><span class="est-flip__name">Rango o recorrido</span><span class="est-flip__hint">↻ voltear</span></span>
+          <span class="est-flip__face est-flip__face--back"><span class="est-tag est-tag--formula">∑ Qué tan regados están</span><span class="est-flip__text">Es la distancia entre los extremos: 780 − 122 = <strong>658</strong>.</span></span>
+        </button></div>
+        <div class="est-flip"><button class="est-flip__inner" type="button" aria-pressed="false">
+          <span class="est-flip__face est-flip__face--front"><span class="est-flip__step">Paso 3</span><span class="est-flip__symbol" style="font-size:30px">m = 1 + 3.322·log(n)</span><span class="est-flip__name">Número de intervalos (Sturges)</span><span class="est-flip__hint">↻ voltear</span></span>
+          <span class="est-flip__face est-flip__face--back"><span class="est-tag est-tag--formula">∑ Cuántas filas</span><span class="est-flip__text">"log" es la tecla <strong>log</strong> de la calculadora. Con log(100) = 2 queda 1 + 6.644 = 7.64, que se redondea a un <strong>número natural: m = 7</strong>. (Sí, ahí nací yo.)</span></span>
+        </button></div>
+        <div class="est-flip"><button class="est-flip__inner" type="button" aria-pressed="false">
+          <span class="est-flip__face est-flip__face--front"><span class="est-flip__step">Paso 4</span><span class="est-flip__symbol" style="font-size:34px">A &gt; R ÷ m</span><span class="est-flip__name">Amplitud de cada intervalo</span><span class="est-flip__hint">↻ voltear</span></span>
+          <span class="est-flip__face est-flip__face--back"><span class="est-tag est-tag--formula">∑ Qué tan ancho</span><span class="est-flip__text">658 ÷ 7 = 94, así que A tiene que ser mayor que 94. Escoge un número <strong>cómodo y redondo</strong>: A = 100.</span></span>
+        </button></div>
+        <div class="est-flip"><button class="est-flip__inner" type="button" aria-pressed="false">
+          <span class="est-flip__face est-flip__face--front"><span class="est-flip__step">Paso 5</span><span class="est-flip__symbol" style="font-size:30px">Ra = m·A · a = Ra − R</span><span class="est-flip__name">Rango ampliado y sobrante</span><span class="est-flip__hint">↻ voltear</span></span>
+          <span class="est-flip__face est-flip__face--back"><span class="est-tag est-tag--formula">∑ Lo que sobra</span><span class="est-flip__text">Ra = 7 × 100 = 700 y a = 700 − 658 = <strong>42</strong>. Regla: <strong>a no puede ser mayor que A</strong>.</span></span>
+        </button></div>
+        <div class="est-flip"><button class="est-flip__inner" type="button" aria-pressed="false">
+          <span class="est-flip__face est-flip__face--front"><span class="est-flip__step">Paso 6</span><span class="est-flip__symbol" style="font-size:30px">LIPI ≈ X<sub>min</sub> − a/2</span><span class="est-flip__name">Límites y marcas de clase</span><span class="est-flip__hint">↻ voltear</span></span>
+          <span class="est-flip__face est-flip__face--back"><span class="est-tag est-tag--formula">∑ Arma los intervalos</span><span class="est-flip__text">122 − 21 ≈ <strong>100</strong>; luego vas sumando A: 100–200, 200–300… hasta 800. La <strong>marca de clase</strong> es el punto medio: (100 + 200) ÷ 2 = 150.</span></span>
+        </button></div>
+      </div>
+      <div class="est-box est-box--ojo" style="margin-top:16px"><span class="est-tag est-tag--ojo">⚠ Ojo: intervalos abiertos a la derecha</span>
+        <p>"100 – 200" quiere decir <strong>de 100 a menos de 200</strong>. Un dato que vale exactamente 200 va en el <strong>siguiente</strong> intervalo, así nadie se cuenta dos veces.</p></div>
+      <p style="margin-top:12px;font-size:15px;color:var(--muted)"><span class="est-term" tabindex="0">LIPI<span class="est-tooltip" role="tooltip">Límite Inferior del Primer Intervalo: donde empieza la tabla.</span></span> y <span class="est-term" tabindex="0">LSUI<span class="est-tooltip" role="tooltip">Límite Superior del Último Intervalo: donde termina la tabla. LSUI = LIPI + m·A.</span></span> son los nombres que usa tu clase para el inicio y el final de la tabla.</p>
+    </div>
+
+    <!-- 2.3 Ejemplo baldosas -->
+    <div class="est-block" id="m2-ejemplo">
+      <div class="est-block__head"><span class="est-block__num">2.3</span><h3 class="est-section__subtitle">Mira cómo se hace: 100 baldosas</h3></div>
+      <div class="est-carousel" data-carousel aria-roledescription="carrusel" aria-label="Ejemplo resuelto de baldosas">
+        <div class="est-carousel__track">
+          <article class="est-carousel__slide" aria-label="Paso 1 de 5">
+            <p class="est-slide__step">▶ Ejemplo · Pasos 1 y 2</p>
+            <h4 class="est-slide__title">Extremos y rango</h4>
+            <div class="est-slide__body est-slide__body--split">
+              <p class="est-bigcalc">X<sub>max</sub> = 780 · X<sub>min</sub> = 122<small>Ya los buscaste en los 100 datos.</small></p>
+              <p class="est-bigcalc">R = 780 − 122 = 658<small>Rango o recorrido.</small></p>
+            </div>
+          </article>
+          <article class="est-carousel__slide" aria-label="Paso 2 de 5">
+            <p class="est-slide__step">▶ Ejemplo · Paso 3</p>
+            <h4 class="est-slide__title">¿Cuántos intervalos?</h4>
+            <div class="est-slide__body est-slide__body--split">
+              <p class="est-bigcalc">m = 1 + 3.322 × log(100)<br>m = 1 + 3.322 × 2 = 7.64<small>No existen 7.64 filas, así que m = 7.</small></p>
+              <div class="est-say est-say--siete"><svg class="est-say__av" aria-hidden="true"><use href="#av-siete"/></svg><div class="est-say__bubble"><span class="est-say__name">Siete-Punto-Seis</span><p>Y aquí es donde me cortan el .64. Frente a todos. Sin anestesia. Sigamos.</p></div></div>
+            </div>
+          </article>
+          <article class="est-carousel__slide" aria-label="Paso 3 de 5">
+            <p class="est-slide__step">▶ Ejemplo · Pasos 4 y 5</p>
+            <h4 class="est-slide__title">Amplitud, rango ampliado y sobrante</h4>
+            <div class="est-slide__body est-slide__body--split">
+              <p class="est-bigcalc">A &gt; 658 ÷ 7 = 94 → A = 100<small>100 es redondo y la tabla queda bonita.</small></p>
+              <p class="est-bigcalc">Ra = 7 × 100 = 700<br>a = 700 − 658 = 42 ✔<small>42 no es mayor que 100, así que se cumple la regla.</small></p>
+            </div>
+          </article>
+          <article class="est-carousel__slide" aria-label="Paso 4 de 5">
+            <p class="est-slide__step">▶ Ejemplo · Paso 6</p>
+            <h4 class="est-slide__title">Límites, marcas y conteo</h4>
+            <div class="est-slide__body est-slide__body--split">
+              <div class="est-stack">
+                <p class="est-bigcalc">a/2 = 21<small>122 − 21 = 101, que se redondea a LIPI = 100. 780 + 21 = 801, que queda en LSUI = 800.</small></p>
+                <p>Tu clase lo dice tal cual: no se resta <em>exactamente</em> a/2, sino una cantidad parecida que deje la tabla limpia.</p>
+              </div>
+              <div class="est-table-wrap"><table class="est-table" data-baldosas></table></div>
+            </div>
+          </article>
+          <article class="est-carousel__slide" aria-label="Paso 5 de 5">
+            <p class="est-slide__step">▶ Ejemplo · Conclusiones</p>
+            <h4 class="est-slide__title">Lo que dice la tabla</h4>
+            <div class="est-slide__body est-slide__body--split">
+              <ul class="est-stack" style="padding-left:1.2rem">
+                <li>El <strong>72%</strong> resiste entre 300 y 600 Kg/cm². <em>Sale de 0.21 + 0.33 + 0.18.</em></li>
+                <li>El <strong>86%</strong> resiste menos de 600. <em>Es la fra de 500–600.</em></li>
+                <li>Solo el <strong>5%</strong> resiste 700 o más. <em>Es la fr de la última fila.</em></li>
+              </ul>
+              <div class="est-say est-say--fermin"><svg class="est-say__av" aria-hidden="true"><use href="#av-fermin"/></svg><div class="est-say__bubble"><span class="est-say__name">Fermín Acumulado</span><p>¿Notas que "menos de 600" sale directo de mi columna? De nada.</p></div></div>
+            </div>
+          </article>
+        </div>
+        <div class="est-carousel__bar">
+          <button class="est-carousel__arrow" type="button" data-prev aria-label="Paso anterior">←</button>
+          <div class="est-carousel__dots" role="tablist"></div>
+          <span class="est-carousel__count" aria-live="polite"></span>
+          <button class="est-carousel__arrow" type="button" data-next aria-label="Paso siguiente">→</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2.4 Calculadora -->
+    <div class="est-block" id="m2-calc">
+      <div class="est-block__head"><span class="est-block__num">2.4</span><h3 class="est-section__subtitle">Calculadora de intervalos (para revisar, no para saltarte el cuaderno)</h3></div>
+      <div class="est-calc est-card">
+        <div>
+          <div class="est-field"><label for="cData">Datos</label>
+            <select id="cData"><option value="agua">Agua · 184 familias</option><option value="notas">Calificaciones · 130 estudiantes</option></select></div>
+          <div class="est-field"><label for="cM">Número de intervalos (m)</label><input id="cM" type="number" min="2" max="20" step="1" value="8" inputmode="numeric"></div>
+          <div class="est-field"><label for="cA">Amplitud (A)</label><input id="cA" type="number" min="0.1" step="0.1" value="" inputmode="decimal" placeholder="ej. 4.5"><small>Debe ser mayor que R ÷ m.</small></div>
+          <div class="est-field"><label for="cL">Límite inferior del primer intervalo (LIPI)</label><input id="cL" type="number" step="0.1" value="" inputmode="decimal" placeholder="ej. 0"><small>Si lo dejas vacío, lo sugiero yo.</small></div>
+        </div>
+        <div>
+          <ul class="est-results" id="cOut"></ul>
+          <ul class="est-checks" id="cChecks"></ul>
+          <div style="margin-top:12px"><button class="est-btn est-btn--outline est-btn--sm" type="button" id="cShow" aria-expanded="false">Ver la tabla que resulta</button></div>
+          <div class="est-table-wrap" id="cTableWrap" style="margin-top:12px" hidden><table class="est-table" id="cTable"></table></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2.5 Agua -->
+    <div class="est-block" id="m2-agua">
+      <div class="est-block__head"><span class="est-block__num">2.5</span><h3 class="est-section__subtitle">Tu turno: consumo de agua de 184 familias (ejercicio 4)</h3></div>
+      <div class="est-box est-box--turno"><span class="est-tag est-tag--turno">✎ Tu turno</span>
+        <p>Consumo en m³ durante octubre. Haz <strong>dos tablas por intervalos</strong>: una con <strong>m = 8</strong> (4.1) y otra con <strong>m = 9</strong> (4.2). Después <strong>compáralas</strong> (4.3).</p></div>
+      <div class="est-say est-say--siete" style="margin-top:16px">
+        <svg class="est-say__av" aria-hidden="true"><use href="#av-siete"/></svg>
+        <div class="est-say__bubble"><span class="est-say__name">Siete-Punto-Seis</span><p>Dato curioso: con n = 184, Sturges da <em>8.52</em>. Ni 8 ni 9. Por eso te piden los dos. Bienvenida a mi mundo.</p></div>
+      </div>
+      <div class="est-card" style="margin-top:16px">
+        <div class="est-tools">
+          <button class="est-btn est-btn--outline est-btn--sm" type="button" data-sort="aguaChips" aria-pressed="false">Ordenar de menor a mayor</button>
+          <button class="est-btn est-btn--outline est-btn--sm" type="button" data-minmax="aguaChips" aria-pressed="false">Resaltar mínimo y máximo</button>
+        </div>
+        <div class="est-chips" id="aguaChips" data-chips="agua"></div>
+      </div>
+      <div class="est-box est-box--ojo" style="margin-top:16px"><span class="est-tag est-tag--ojo">⚠ Ojo: la trampa del m = 8</span>
+        <p>R ÷ 8 = 4.125, y uno pensaría en A = 5. Pero entonces Ra = 40 y a = 7, que es <strong>mayor que A</strong>: rompe la regla y te queda un intervalo vacío al final. Prueba en la calculadora qué A sí cumple.</p></div>
+      <div style="margin-top:16px">
+        <div class="est-acc est-acc--pista"><button class="est-acc__btn" type="button" aria-expanded="false"><span class="est-acc__icon">?</span><span class="est-acc__label">Pista</span><span class="est-acc__chev">▾</span></button>
+          <div class="est-acc__panel" hidden><ul>
+            <li>Usa "Ordenar" o "Resaltar" para encontrar X<sub>min</sub> y X<sub>max</sub> sin sufrir.</li>
+            <li>A no tiene que ser entero: <strong>4.5</strong> también es una amplitud válida.</li>
+            <li>Nadie consume agua negativa, así que si LIPI te da negativo, empieza en <strong>0</strong>.</li>
+          </ul></div></div>
+        <div class="est-acc est-acc--verifica"><button class="est-acc__btn" type="button" aria-expanded="false"><span class="est-acc__icon">✔</span><span class="est-acc__label">Verifica tus números</span><span class="est-acc__chev">▾</span></button>
+          <div class="est-acc__panel" hidden><ul>
+            <li>X<sub>min</sub> = <strong>1</strong>, X<sub>max</sub> = <strong>34</strong> y R = <strong>33</strong>.</li>
+            <li>Con m = 8: A = <strong>4.5</strong>, Ra = 36 y a = 3 ✔. Los intervalos van de 0 a 36.</li>
+            <li>Con m = 9: A = <strong>4</strong>, Ra = 36 y a = 3 ✔. También van de 0 a 36.</li>
+            <li>En las dos tablas, las f<sub>i</sub> suman <strong>184</strong>.</li>
+          </ul></div></div>
+        <div class="est-acc est-acc--solucion"><button class="est-acc__btn" type="button" aria-expanded="false"><span class="est-acc__icon">!</span><span class="est-acc__label">Estoy atorad@: las dos tablas</span><span class="est-acc__chev">▾</span></button>
+          <div class="est-acc__panel" hidden>
+            <div class="est-table-wrap"><table class="est-table" data-interval="agua" data-l="0" data-a="4.5" data-m="8" data-caption="4.1 · Agua con m = 8 (A = 4.5)"></table></div>
+            <div class="est-table-wrap"><table class="est-table" data-interval="agua" data-l="0" data-a="4" data-m="9" data-caption="4.2 · Agua con m = 9 (A = 4)"></table></div>
+            <p style="font-size:15px;color:var(--muted)">Las fr están redondeadas a 3 decimales, así que su suma puede dar 0.999 o 1.001. Eso es normal. Si en clase usaron otro A u otro LIPI respetando las reglas, tu tabla también está bien.</p>
+          </div></div>
+        <div class="est-acc est-acc--solucion"><button class="est-acc__btn" type="button" aria-expanded="false"><span class="est-acc__icon">!</span><span class="est-acc__label">4.3 · Ideas para comparar</span><span class="est-acc__chev">▾</span></button>
+          <div class="est-acc__panel" hidden><ul>
+            <li>Con m = 8, el intervalo con más familias es <strong>9 – 13.5 m³</strong> (22.3%). Con m = 9 es <strong>16 – 20 m³</strong> (20.1%). <em>La forma de agrupar cambia dónde parece estar "el pico".</em></li>
+            <li>En las dos tablas la mayoría consume <strong>entre 9 y 24 m³</strong> aproximadamente: con m = 8, el 64% está entre 9 y 22.5; con m = 9, el 57% está entre 12 y 24.</li>
+            <li>Pocas familias consumen mucho: con m = 9, solo el <strong>7.6%</strong> gasta 28 m³ o más.</li>
+            <li>La tabla de m = 9 tiene <strong>límites enteros</strong> (A = 4), así que es más fácil de leer. La de m = 8 resume un poco más.</li>
+          </ul></div></div>
+      </div>
+      <div style="margin-top:16px;display:grid;gap:10px">
+        <label class="est-done"><input type="checkbox" data-check="m2-agua8"> Ya tengo la tabla del agua con m = 8</label>
+        <label class="est-done"><input type="checkbox" data-check="m2-agua9"> Ya tengo la tabla del agua con m = 9</label>
+        <label class="est-done"><input type="checkbox" data-check="m2-comp"> Ya escribí la comparación (4.3)</label>
+      </div>
+    </div>
+
+    <!-- 2.6 Calificaciones -->
+    <div class="est-block" id="m2-notas">
+      <div class="est-block__head"><span class="est-block__num">2.6</span><h3 class="est-section__subtitle">Tu turno: calificaciones de 130 estudiantes (ejercicio 5)</h3></div>
+      <div class="est-box est-box--turno"><span class="est-tag est-tag--turno">✎ Tu turno</span>
+        <p>Haz <strong>una tabla por intervalos</strong> y escribe <strong>4 conclusiones</strong>. Aquí tú decides m con Sturges.</p></div>
+      <div class="est-say est-say--moda" style="margin-top:16px">
+        <svg class="est-say__av" aria-hidden="true"><use href="#av-moda"/></svg>
+        <div class="est-say__bubble"><span class="est-say__name">La Moda</span><p>Último ejercicio. Spoiler: el intervalo que más se repite va a ser mi primo. Encuéntralo y escríbelo en tus conclusiones.</p></div>
+      </div>
+      <div class="est-card" style="margin-top:16px">
+        <div class="est-tools">
+          <button class="est-btn est-btn--outline est-btn--sm" type="button" data-sort="notasChips" aria-pressed="false">Ordenar de menor a mayor</button>
+          <button class="est-btn est-btn--outline est-btn--sm" type="button" data-minmax="notasChips" aria-pressed="false">Resaltar mínimo y máximo</button>
+        </div>
+        <div class="est-chips" id="notasChips" data-chips="notas"></div>
+      </div>
+      <div style="margin-top:16px">
+        <div class="est-acc est-acc--pista"><button class="est-acc__btn" type="button" aria-expanded="false"><span class="est-acc__icon">?</span><span class="est-acc__label">Pista</span><span class="est-acc__chev">▾</span></button>
+          <div class="est-acc__panel" hidden><p>log(130) ≈ 2.114. Haz el cálculo de m y redondea. Para la amplitud, prueba un número redondo que cumpla A &gt; R ÷ m y que deje a ≤ A.</p></div></div>
+        <div class="est-acc est-acc--verifica"><button class="est-acc__btn" type="button" aria-expanded="false"><span class="est-acc__icon">✔</span><span class="est-acc__label">Verifica tus números</span><span class="est-acc__chev">▾</span></button>
+          <div class="est-acc__panel" hidden><ul>
+            <li>X<sub>min</sub> = <strong>12</strong>, X<sub>max</sub> = <strong>49</strong> y R = <strong>37</strong>.</li>
+            <li>Sturges: 1 + 3.322 × 2.114 = 8.02, así que <strong>m = 8</strong>.</li>
+            <li>37 ÷ 8 = 4.625, entonces <strong>A = 5</strong>, Ra = 40 y a = 3 ✔.</li>
+            <li>LIPI ≈ 12 − 1.5 = 10.5, que se redondea a <strong>10</strong>. LSUI = 50.</li>
+            <li>Las f<sub>i</sub> suman <strong>130</strong>.</li>
+          </ul></div></div>
+        <div class="est-acc est-acc--solucion"><button class="est-acc__btn" type="button" aria-expanded="false"><span class="est-acc__icon">!</span><span class="est-acc__label">Estoy atorad@: tabla completa</span><span class="est-acc__chev">▾</span></button>
+          <div class="est-acc__panel" hidden>
+            <div class="est-table-wrap"><table class="est-table" data-interval="notas" data-l="10" data-a="5" data-m="8" data-caption="Calificaciones de 130 estudiantes (m = 8, A = 5)"></table></div>
+          </div></div>
+        <div class="est-acc est-acc--solucion"><button class="est-acc__btn" type="button" aria-expanded="false"><span class="est-acc__icon">!</span><span class="est-acc__label">Ver conclusiones de ejemplo</span><span class="est-acc__chev">▾</span></button>
+          <div class="est-acc__panel" hidden><ul>
+            <li>El intervalo más frecuente es <strong>30 – 35</strong>, con el 24.6% de los estudiantes.</li>
+            <li>El <strong>64.6%</strong> sacó entre 25 y 40 puntos (0.192 + 0.246 + 0.208).</li>
+            <li>El <strong>62.3%</strong> sacó menos de 35 (fra de 30–35).</li>
+            <li>Solo el <strong>7.7%</strong> sacó menos de 20, y el <strong>16.9%</strong> sacó 40 o más.</li>
+          </ul></div></div>
+      </div>
+      <div style="margin-top:16px;display:grid;gap:10px">
+        <label class="est-done"><input type="checkbox" data-check="m2-notas"> Ya tengo la tabla de calificaciones y mis 4 conclusiones</label>
+      </div>
+    </div>
+
+    <!-- 2.7 Preguntas -->
+    <div class="est-block" id="m2-preguntas">
+      <div class="est-block__head"><span class="est-block__num">2.7</span><h3 class="est-section__subtitle">Cuestionario 1 a 3</h3></div>
+      <div class="est-acc est-acc--pregunta"><button class="est-acc__btn" type="button" aria-expanded="false"><span class="est-acc__icon">1</span><span class="est-acc__label">¿Por qué se recurre al agrupamiento en intervalos?</span><span class="est-acc__chev">▾</span></button>
+        <div class="est-acc__panel" hidden>
+          <p><span class="est-tag est-tag--turno">✎ Pista</span><br>Acuérdate de las 80 filas de las baldosas.</p>
+          <p><span class="est-tag est-tag--ok">✔ Respuesta guía</span><br>Porque cuando los datos tienen <strong>muchos valores distintos</strong> y casi ninguno se repite, una tabla simple tendría demasiadas filas con frecuencia 1 y no mostraría ningún patrón. Agrupar en intervalos <strong>resume</strong> grandes volúmenes de datos y ayuda a ver tendencias.</p>
+        </div></div>
+      <div class="est-acc est-acc--pregunta"><button class="est-acc__btn" type="button" aria-expanded="false"><span class="est-acc__icon">2</span><span class="est-acc__label">¿Cómo se determina el número de intervalos y su amplitud?</span><span class="est-acc__chev">▾</span></button>
+        <div class="est-acc__panel" hidden>
+          <p><span class="est-tag est-tag--turno">✎ Pista</span><br>Pasos 3, 4 y 5 de la receta.</p>
+          <p><span class="est-tag est-tag--ok">✔ Respuesta guía</span><br>El número de intervalos se calcula con la <strong>regla de Sturges</strong>, m = 1 + 3.322·log(n), redondeando a un número natural (normalmente entre 5 y 15); también lo puede fijar el investigador. La amplitud se obtiene con <strong>A &gt; R ÷ m</strong>, escogiendo un valor cómodo y revisando que el sobrante a = m·A − R no sea mayor que A.</p>
+        </div></div>
+      <div class="est-acc est-acc--pregunta"><button class="est-acc__btn" type="button" aria-expanded="false"><span class="est-acc__icon">3</span><span class="est-acc__label">¿Qué es una marca de clase?</span><span class="est-acc__chev">▾</span></button>
+        <div class="est-acc__panel" hidden>
+          <p><span class="est-tag est-tag--turno">✎ Pista</span><br>Es "el punto medio de…".</p>
+          <p><span class="est-tag est-tag--ok">✔ Respuesta guía</span><br>Es el <strong>punto medio de cada intervalo</strong>: X = (límite inferior + límite superior) ÷ 2. Representa a todos los datos de ese intervalo. Por ejemplo, para 100–200 la marca de clase es 150.</p>
+        </div></div>
+      <div style="margin-top:16px"><label class="est-done"><input type="checkbox" data-check="m2-preg"> Ya contesté el cuestionario 1, 2 y 3</label></div>
+      <div class="est-next"><a class="est-btn est-btn--primary" href="#checklist">Ir al checklist final →</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHECKLIST ============ -->
+<section class="est-wrap est-wrap--alt" id="checklist" aria-labelledby="t-check">
+  <div class="est-section">
+    <p class="est-section__label">Cierre</p>
+    <h2 class="est-section__title" id="t-check">Checklist de entregables</h2>
+    <div class="est-say est-say--fermin">
+      <svg class="est-say__av" aria-hidden="true"><use href="#av-fermin"/></svg>
+      <div class="est-say__bubble"><span class="est-say__name">Fermín Acumulado</span><p>Aquí se acumula tu avance. Lo guardo en este navegador para que mañana sigas donde te quedaste. Es lo único que guardo con permiso.</p></div>
+    </div>
+    <div class="est-progress">
+      <div class="est-progress__bar" role="progressbar" aria-valuemin="0" aria-valuemax="9" aria-valuenow="0" aria-label="Entregables completados" id="progBar"><div class="est-progress__fill" id="progFill"></div></div>
+      <p class="est-progress__label" id="progLabel">0 de 9 entregables</p>
+    </div>
+    <ol class="est-checklist" id="checkList"></ol>
+    <div style="margin-top:20px"><button class="est-btn est-btn--outline est-btn--sm" type="button" id="resetAll">Empezar de cero (borra las marcas)</button></div>
+  </div>
+</section>
+</main>
+
+<footer class="est-footer">
+  Hecho para estudiar las Clases 2 y 3 de Estadística · Personajes originales: Siete-Punto-Seis, La Moda y Fermín Acumulado.
+</footer>
+
+<!-- ============ POMODORO ============ -->
+<div class="est-pomo" id="pomo">
+  <div class="est-pomo__panel" id="pomoPanel" hidden>
+    <p class="est-pomo__mode" id="pomoMode">Foco · 15 min</p>
+    <p class="est-pomo__time" id="pomoTime" aria-live="off">15:00</p>
+    <span class="est-pomo__state" id="pomoState">Listo para empezar</span>
+    <div class="est-pomo__btns">
+      <button class="est-btn est-btn--primary est-btn--sm" type="button" id="pomoToggle">Iniciar</button>
+      <button class="est-btn est-btn--outline est-btn--sm" type="button" id="pomoReset">Reiniciar</button>
+      <button class="est-btn est-btn--outline est-btn--sm" type="button" id="pomoSkip">Saltar a descanso</button>
+    </div>
+  </div>
+  <button class="est-pomo__fab" type="button" id="pomoFab" aria-expanded="false" aria-controls="pomoPanel">⏱ <span id="pomoFabTime">15:00</span></button>
+</div>
+
+<div class="est-toast" aria-live="polite"><div class="est-toast__msg" id="toast"><svg aria-hidden="true"><use href="#av-siete"/></svg><p></p></div></div>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
