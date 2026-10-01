@@ -1,0 +1,78 @@
+/* =============================================
+   PORTADA (index.html) — usa los tokens de styles.css
+   ============================================= */
+.hub-hero {
+  position: relative; z-index: 5;
+  max-width: 1180px; margin: 0 auto;
+  padding: 12px 16px 56px;
+}
+@media (min-width: 900px) { .hub-hero { padding: 24px 40px 80px; } }
+.hub-stats { justify-content: flex-start; }
+.hub-logo { width: 100%; height: 100%; }
+
+/* Filtros */
+.hub-filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 24px; }
+.hub-filter {
+  min-height: 40px; padding: 8px 16px; border-radius: 100px;
+  border: 1px solid var(--border); background: transparent; color: var(--muted);
+  font-size: 14px; font-weight: 600; cursor: pointer;
+  transition: background .2s ease, color .2s ease, border-color .2s ease;
+}
+.hub-filter:hover { color: var(--white); border-color: var(--electric-line); }
+.hub-filter[aria-pressed="true"] { background: var(--electric); border-color: var(--electric); color: var(--white); }
+
+/* Grid de tarjetas */
+.hub-grid {
+  list-style: none;
+  display: grid; gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+  margin-top: 24px;
+}
+.hub-card {
+  --acc: var(--sig-formula);
+  display: flex;
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--acc) 7%, var(--navy));
+  border: 1px solid color-mix(in srgb, var(--acc) 30%, transparent);
+  transition: transform .25s ease, border-color .25s ease;
+}
+.hub-card:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--acc) 60%, transparent); }
+.hub-card--violeta  { --acc: var(--sig-formula); }
+.hub-card--cian     { --acc: var(--sig-ejemplo); }
+.hub-card--amarillo { --acc: var(--electric-lt); }
+.hub-card--rosa     { --acc: var(--danger); }
+.hub-card--verde    { --acc: var(--success); }
+
+.hub-card__link, .hub-card--proxima {
+  flex: 1; display: flex; flex-direction: column; gap: 6px;
+  padding: 20px; color: var(--white); text-decoration: none; border-radius: inherit;
+}
+.hub-card__top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+.hub-card__icon {
+  display: flex; align-items: center; justify-content: center;
+  width: 56px; height: 56px; border-radius: 14px;
+  background: color-mix(in srgb, var(--acc) 18%, transparent); color: var(--acc);
+}
+.hub-card__icon svg { width: 40px; height: 40px; }
+.hub-card__chip { font-size: 13px; font-weight: 700; padding: 4px 12px; border-radius: 100px; background: rgba(255,255,255,0.08); color: var(--off-white); }
+.hub-card__chip--curso { background: rgba(255,216,77,0.15); color: var(--electric-lt); }
+.hub-card__chip--lista { background: rgba(52,211,153,0.15); color: var(--success); }
+.hub-card__materia { font-size: 14px; font-weight: 700; color: var(--acc); }
+.hub-card__tema { font-size: clamp(22px, 2.2vw, 24px); font-weight: 800; line-height: 1.3; }
+.hub-card__detalle { font-size: 15px; color: var(--muted); }
+.hub-card__bar { display: block; height: 8px; margin-top: auto; border-radius: 100px; background: rgba(255,255,255,0.08); overflow: hidden; }
+.hub-card__link .hub-card__bar { margin-top: 18px; }
+.hub-card__bar span { display: block; height: 100%; border-radius: inherit; background: var(--acc); transform-origin: left; }
+.hub-card__foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 8px; font-size: 14px; color: var(--muted); }
+.hub-card__cta { font-weight: 700; color: var(--white); }
+.hub-card__link:hover .hub-card__cta { color: var(--electric-lt); }
+
+/* Espacio reservado para la próxima guía */
+.hub-card--proxima {
+  --acc: var(--muted);
+  background: transparent;
+  border: 1.5px dashed var(--border);
+  justify-content: center; align-items: flex-start; min-height: 220px;
+}
+.hub-card--proxima:hover { transform: none; }
+.hub-card--proxima .hub-card__icon { margin-bottom: 8px; }

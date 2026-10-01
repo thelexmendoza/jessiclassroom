@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jessi Classroom</title>
+<meta name="description" content="Las guías de estudio de Jessi: una tarjeta por tarea, con su avance.">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#13111C">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/portada.css">
+</head>
+<body>
+<a class="skip" href="#tareas">Saltar a las tareas</a>
+
+<main>
+  <header class="est-hero">
+    <div class="est-hero__top">
+      <a class="est-logo" href="index.html">
+        <span class="est-logo__mark" aria-hidden="true"><svg class="hub-logo" viewBox="0 0 64 64"><rect x="10" y="36" width="9" height="16" rx="2" style="fill:var(--char-claro)"/><rect x="21.5" y="26" width="9" height="26" rx="2" style="fill:var(--char-claro)"/><rect x="33" y="14" width="9" height="38" rx="2" style="fill:var(--electric-lt)"/><rect x="44.5" y="30" width="9" height="22" rx="2" style="fill:var(--char-claro)"/></svg></span>
+        <span class="est-logo__text">Jessi Classroom<span>Guías de estudio</span></span>
+      </a>
+    </div>
+    <div class="hub-hero">
+      <h1 class="est-hero__headline">Hola, Jessi. <em>¿Qué toca hoy?</em></h1>
+      <p class="est-hero__sub">Elige una tarjeta. Cada guía te dice primero <strong>qué entregar</strong> y luego te lleva paso a paso. Tu avance se guarda en este navegador.</p>
+      <div class="est-stat-row hub-stats" id="hubStats"></div>
+    </div>
+  </header>
+
+  <section class="est-wrap" id="tareas" aria-labelledby="t-tareas">
+    <div class="est-section">
+      <p class="est-section__label">Tus guías</p>
+      <h2 class="est-section__title" id="t-tareas">Tareas</h2>
+      <div class="hub-filters" id="hubFilters" role="group" aria-label="Filtrar por materia"></div>
+      <ul class="hub-grid" id="hubGrid"></ul>
+    </div>
+  </section>
+</main>
+
+<footer class="est-footer">Jessi Classroom · Guías hechas a la medida, una materia a la vez.</footer>
+
+<script src="js/clases.js"></script>
+<script src="js/portada.js"></script>
+</body>
+</html>
